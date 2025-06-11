@@ -1,16 +1,20 @@
 #include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include"cmd.h"
 #include"os_specific.h"
 
 int main(void){
-	int c;
+	char cmd[10];
 
 	hide_carret();
 	while(1){
 		clear();
 		set_noncanonical();
-		c=getchar();
+		cmd[strlen(cmd)+1]='\0';
+		cmd[strlen(cmd)]=getchar();
 		set_canonical();
-		if(c=='q'){
+		if(exe_cmd(cmd)==EXIT_FAILURE){
 			break;
 		}
 	}

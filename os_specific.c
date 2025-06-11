@@ -1,4 +1,3 @@
-#include"os_specific.h"
 #if defined(_WIN32)||defined(_WIN64)
 #	include<stdio.h>
 #	include<stdlib.h>
