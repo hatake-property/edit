@@ -12,7 +12,6 @@ int get_term_col(void);
 int get_term_row(void);
 int hide_carret(void);
 int set_canonical(void);
-int set_italic(void);
 int set_noncanonical(void);
 int show_carret(void);
 
