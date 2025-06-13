@@ -1,16 +1,13 @@
 #!/bin/bash
 
-cmd=
+cmd=""
 # file information
-path=
+path=""
 token=()
 
-if [ $# -eq 0 ]
-then
-	for (( i=0 ; true ; i++ ))
-	do
-		if [ ! -e "untitled-$i" ]
-        then
+if [ $# -eq 0 ]; then
+	for (( i=0 ; true ; i++ )); do
+		if [ ! -e "untitled-$i" ]; then
 			path="untitled-$i"
 			break
 		fi
@@ -18,19 +15,18 @@ then
 	content=""
 else
 	path="$1"
-	if [ -e "$path" ]
-	then
-		s=
-		for (( i=1 ; i -le ${#$(<"$path")} ; i++ ))
-		do
-			c=$(<"$path")|cat -c i
+	if [ -e "$path" ]; then
+		s=""
+		content=$(<"$path")
+		for (( i=0; i<${#content}; i++ )); do
+			c="${content:i:1}"
 			case "$c" in
-			\n)
+			$'\n')
 				token+=("$s")
-				s+="$c"
+				s="$c"
 				;;
-			[\s])
-				if [ "$s"|cat -c 0 != [ ] ]
+			" ")
+				if [ "${s:0:1}" != " " ]
 				then
 					token+=("$s")
 					s=""
@@ -38,7 +34,7 @@ else
 				s+="$c"
 				;;
 			*)
-				if [ "$s"|cat -c 0 = [ ] ] || [ "$s"|cat -c 0 = [ ] ]
+				if [ "${s:0:1}" = " " ] || [ "${s:0:1}" = $'\n' ]
 				then
 					token+=("$s")
 					s=""
@@ -53,10 +49,12 @@ else
 	fi
 fi
 
-while true
-do
+while true; do
 	clear
-	read -s -r -n 1 key
+	for item in "${token[@]}"; do
+		echo -n "$item"
+	done
+	read -s -n 1 key
 	cmd+="$key"
 	case "$cmd" in
 	[Qq])
