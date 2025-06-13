@@ -1,6 +1,7 @@
 #!/bin/bash
 
 cmd=""
+carret=0
 # file information
 path=""
 token=()
@@ -13,7 +14,7 @@ if [ $# -eq 0 ]; then
 		fi
 	done
 	content=""
-else
+elsed
 	path="$1"
 	if [ -e "$path" ]; then
 		s=""
@@ -51,8 +52,14 @@ fi
 
 while true; do
 	clear
-	for item in "${token[@]}"; do
-		echo -n "$item"
+	for (( i=0; i<${#token[@]}; i++ )); do
+		if [ $i -eq $carret ]; then
+			echo -n "\033[7m"
+		fi
+		echo -n "${token[$i]}"
+		if [ $i -eq $carret ]; then
+			echo -n "\033[0m"
+		fi
 	done
 	read -s -n 1 key
 	cmd+="$key"
