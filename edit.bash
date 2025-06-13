@@ -64,8 +64,23 @@ while true; do
 	read -s -n 1 key
 	cmd+="$key"
 	case "$cmd" in
+	[Ff])
+		# tap easy
+		# move carret to the left
+		if [ carret -ne 0 ]; then
+			(( carret-- ))
+		fi
+		;;
+	[Jj])
+		# tap easy
+		# move the carret to the right
+		if [ carret -ne (( ${#token[@]} - 1 )) ]; then
+			(( carret++ ))
+		fi
+		;;
 	[Qq])
-		echo "finish"
+		# omit `quit'
+		# finish program
 		break
 		;;
 	*)
